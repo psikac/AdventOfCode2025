@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="2025/Solution.csproj" />
+  <Project Path="Common/Common.csproj" />
+  <Project Path="Runner/Runner.csproj" />
+</Solution>
