@@ -8,34 +8,33 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        if (args.Length < 2)
+        if (args.Length < 1)
         {
             Console.WriteLine("Usage: Runner [example]");
-            Console.WriteLine("Example: Runner 2025 1");
-            Console.WriteLine("Example: Runner 2025 1 example");
+            Console.WriteLine("Example: Runner 1");
+            Console.WriteLine("Example: Runner 1 example");
             return;
         }
 
-        var year = int.Parse(args[0]);
-        var day = int.Parse(args[1]);
-        var useExample = args.Length > 2 && args[2] == "example";
+        var day = int.Parse(args[0]);
+        var useExample = args.Length > 1 && args[1] == "example";
 
         try
         {
-            var assembly = Assembly.Load($"_{year}");
-            var typeName = $"_{year}.Day{day:D2}.Day{day:D2}";
+            var assembly = Assembly.Load($"Solution");
+            var typeName = $"Solution.Day{day:D2}.Day{day:D2}";
             var type = assembly.GetType(typeName);
 
             if (type == null)
             {
-                Console.WriteLine($"Could not find solution for Year {year}, Day {day}");
+                Console.WriteLine($"Could not find solution for, Day {day}");
                 return;
             }
 
             var solution = (ISolution)Activator.CreateInstance(type)!;
-            var input = useExample ? InputReader.ReadExample(year, day) : InputReader.ReadInput(year, day);
+            var input = useExample ? InputReader.ReadExample(day) : InputReader.ReadInput(day);
 
-            Console.WriteLine($"=== Advent of Code {year} - Day {day} ===");
+            Console.WriteLine($"=== Advent of Code 2025 - Day {day} ===");
             Console.WriteLine($"Using {(useExample ? "example" : "actual")} input\n");
 
             var part1 = solution.SolvePart1(input);
